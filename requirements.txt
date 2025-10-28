@@ -1,0 +1,12 @@
+transformers
+tokenizers
+datasets
+peft
+accelerate
+bitsandbytes
+trl
+scikit-learn
+tensorboard
+nip-config
+python-dotenv
+tiktoken

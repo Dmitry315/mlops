@@ -1,0 +1,11 @@
+trainer: !HFBPETokenizerTrainer:
+  bpe_init_params: {}
+  bpe_trainer_params:
+    vocab_size: 52000
+    min_frequency: 2
+    special_tokens: ["<|unk|>", "<|sep|>", "<|pad|>", "<|eos|>", "<|system|>", "<|user|>", "<|assistant|>"]
+  train_corpus_files:
+    - "data/fineweb2.txt"
+  save_path: 
+    hub: "Dmitry315/greek_model_v1"
+    local_path: "experiments/bpe_greek_tokenizer_v1/"
