@@ -20,6 +20,10 @@ if __name__ == "__main__":
     model_path = args.model_path
     model, tokenizer = load_safetensors_model_simple(model_path)
     model.eval()
+
+    # if torch.cuda.is_available():
+    #     device = "cuda"
+    # elif 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 

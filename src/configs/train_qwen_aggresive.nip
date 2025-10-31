@@ -24,7 +24,7 @@ trainer: !HFQwenTrainer
     adam_beta1: 0.9
     adam_beta2: 0.95
     adam_epsilon: 1e-8
-    save_steps: 25
+    save_steps: 100
     save_total_limit: 1
     logging_steps: 10
     learning_rate: 1e-5
