@@ -13,11 +13,14 @@ class HFQwenTrainer:
                  save_path, 
                  resume_from_checkpoint=False,
                  add_size_to_name=True,
+                 tokenizer_truncation_side="right",
+                 tokenizer_padding_side="left",
                  *args, **kwargs
                  ):
         self.train_dataset = train_dataset
         self.tokenizer = PreTrainedTokenizerFast.from_pretrained(tokenizer_path)
-        self.tokenizer.padding_side = "left"
+        self.tokenizer.padding_side = tokenizer_padding_side
+        self.tokenizer.truncation_side = tokenizer_truncation_side
 
         print(f"pad_token: {self.tokenizer.pad_token}")
         print(f"pad_token_id: {self.tokenizer.pad_token_id}")

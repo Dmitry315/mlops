@@ -12,6 +12,8 @@ trainer: !HFQwenTrainer
     hidden_act: "silu"
     attention_bias: False
   tokenizer_path: "src/experiments/bpe_greek_tokenizer_v1"
+  tokenizer_truncation_side: "right"
+  tokenizer_padding_side: "left"
   trainer_config_params:
     output_dir: "src/experiments/results"
     num_train_epochs: 1
