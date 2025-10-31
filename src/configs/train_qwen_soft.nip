@@ -38,6 +38,6 @@ trainer: !HFQwenTrainer
     seed: 42
   train_dataset: !get_pretrain_data
     data_path: "src/experiments/data/fineweb2/train.jsonl"
-  save_path: "src/experiments/models/qwen_pretrain"
+  save_path: "src/experiments/models/qwen_soft_pretrain"
   add_size_to_name: True
   resume_from_checkpoint: *checkpoint
