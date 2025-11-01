@@ -15,6 +15,7 @@ class HFQwenTrainer:
                  add_size_to_name=True,
                  tokenizer_truncation_side="right",
                  tokenizer_padding_side="left",
+                 use_accelerate=True,
                  *args, **kwargs
                  ):
         self.train_dataset = train_dataset
@@ -38,6 +39,7 @@ class HFQwenTrainer:
         self.resume_from_checkpoint = resume_from_checkpoint
         self.save_path = save_path
         total_params = sum(p.numel() for p in self.model.parameters())
+        print("params: ", total_params)
         end = ""
         if total_params >= 100_000_000:
             total_params /= 1_000_000_000
@@ -53,11 +55,12 @@ class HFQwenTrainer:
 
         self.save_path = self.save_path.replace(" ", "_")
 
+        self.use_accelerate = use_accelerate
+
         self.trainer = SFTTrainer(
             model=self.model,
             processing_class=self.tokenizer,
             train_dataset=self.train_dataset,
-            # peft_config=peft_config,
             args=self.train_config
         )
 
@@ -65,5 +68,8 @@ class HFQwenTrainer:
         self.trainer.train(resume_from_checkpoint=self.resume_from_checkpoint)
 
     def save(self):
-        self.model.save_pretrained(self.save_path)
-        self.tokenizer.save_pretrained(self.save_path)
+        if self.use_accelerate:
+            self.trainer.accelerator.save_state(output_dir=self.save_path, safe_serialization=True)
+        else:
+            self.model.save_pretrained(self.save_path)
+            self.tokenizer.save_pretrained(self.save_path)

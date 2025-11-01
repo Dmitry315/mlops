@@ -1,0 +1,51 @@
+trainer: !HFQwenTrainer
+  qwen_params:
+    hidden_size: 1024
+    head_dim: 128
+    intermediate_size: 3072
+    num_hidden_layers: 28
+    max_window_layers: 28
+    num_attention_heads: 16
+    num_key_value_heads: 8
+    max_position_embeddings: 4096
+    attention_dropout: 0.0
+    hidden_act: "silu"
+    attention_bias: False
+  tokenizer_path: "src/experiments/bpe_greek_tokenizer_medium"
+  tokenizer_truncation_side: "right"
+  tokenizer_padding_side: "left"
+  trainer_config_params:
+    output_dir: "src/experiments/results"
+    num_train_epochs: 1
+    max_steps: -1
+    per_device_train_batch_size: 1
+    gradient_accumulation_steps: 1
+    packing: False
+    optim: "adamw_torch"
+    adam_beta1: 0.9
+    adam_beta2: 0.95
+    adam_epsilon: 1e-8
+    save_steps: 100
+    save_total_limit: 1
+    logging_steps: 10
+    logging_first_step: True
+    learning_rate: 1e-5
+    weight_decay: 1e-6
+    fp16: False
+    bf16: True
+    max_grad_norm: 1.0
+    warmup_ratio: 0.03
+    group_by_length: False
+    lr_scheduler_type: "cosine"
+    eval_strategy: "no"
+    max_length: 4096
+    resume_from_checkpoint: &checkpoint False
+    completion_only_loss: False
+    assistant_only_loss: False
+    report_to: []
+    seed: 42
+  train_dataset: !get_pretrain_data
+    data_path: "src/experiments/data/fineweb2_medium/train.jsonl"
+  save_path: "src/experiments/models/qwen_medium_pretrain"
+  add_size_to_name: True
+  resume_from_checkpoint: *checkpoint
