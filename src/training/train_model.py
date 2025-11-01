@@ -14,7 +14,9 @@ load_dotenv()
 
 def train_model_from_config(config):
     model_trainer = config["trainer"]
+    print("Start train")
     model_trainer.train()
+    print("Save model")
     model_trainer.save()
 
 

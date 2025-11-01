@@ -4,8 +4,8 @@ import pandas as pd
 
 def read_fine_web(save_path="../experiments/data/fineweb2/train.jsonl"):
     dataset_name = "HuggingFaceFW/fineweb-2"
-    ds = load_dataset(dataset_name, "ell_Grek", split="train[:1%]")
-    ds.to_json(save_path)
+    ds = load_dataset(dataset_name, "ell_Grek", split="train[:10%]")
+    ds.to_json(save_path, lines=True, orient="records", force_ascii=False)
 
 def save_txt(read_path="../experiments/data/fineweb2/train.jsonl", save_path="../experiments/data/fineweb2/train.txt"):
     df = pd.read_json(read_path, orient="records", lines=True)

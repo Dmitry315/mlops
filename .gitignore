@@ -3,3 +3,5 @@
 **/experiments
 **/logs/
 .env
+**.out
+**.log

@@ -1,7 +1,7 @@
 from nip import nip
 import json
 
-from datasets import Dataset
+from datasets import load_dataset, Dataset
 
 def load_text_jsonl_data(file_path):
     """Load data from a JSONL file"""
@@ -19,7 +19,15 @@ def load_text_jsonl_data(file_path):
 
 @nip
 def get_pretrain_data(data_path, *args, **kwargs):
-    train_dataset = load_text_jsonl_data(data_path)
-    
+    print("Load data")
+    dataset = load_text_jsonl_data(data_path)
+    print("Data loaded")
     # Format datasets
-    return train_dataset
+    return dataset
+
+@nip
+def get_stream_pretrain_data(data_path, *args, **kwargs):
+    print("Load data")
+    dataset = load_dataset('json', data_files=data_path, streaming=True)
+    print("Data loaded")
+    return dataset
